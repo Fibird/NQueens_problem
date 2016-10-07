@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "stdlib.h"
-
+static int count = 0;
 bool isok(int row, int width, const int *queens);
 void printBoard(const int *queens, int width);
 void Nqueens(int deepth, int width, int *queens);
@@ -46,6 +46,8 @@ bool isok(int row, int width, const int *queens)
 
 void printBoard(const int * queens, int width)
 {
+	count++;
+	printf_s("solution #%d\n", count);
 	for (int i = 0; i < width; i++)
 	{
 		for (int j = 0; j < width; j++)
@@ -70,11 +72,11 @@ void Nqueens(int deepth, int width, int *queens)
 		for (int i = 0; i < width; i++)
 		{
 			if (checkPos(i, deepth, queens))
+			{
 				queens[deepth] = i;
-			else
-				continue;
-			if (isok(deepth, width, queens))
 				Nqueens(++deepth, width, queens);
+			}
+			//if (isok(deepth, width, queens))	
 		}
 	}
 }
