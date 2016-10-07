@@ -4,10 +4,11 @@
 #include "stdafx.h"
 #include "stdlib.h"
 
-bool isok(int row, int width, int *queens);
-void printBoard(int *queens, int width);
+bool isok(int row, int width, const int *queens);
+void printBoard(const int *queens, int width);
 void Nqueens(int deepth, int width, int *queens);
 void initQueens(int *queens, int width);
+bool checkPos(int pos, int width, const int *queens);
 
 int main()
 {
@@ -17,20 +18,22 @@ int main()
 	scanf_s("%d", &width);
 
 	queens = (int *)malloc(width * sizeof(int));
+	initQueens(queens, width);
+
 	Nqueens(0, width, queens);
     return 0;
 }
 
-bool isok(int row, int width, int *queens)
+bool isok(int row, int width, const int *queens)
 {
-	int p = width - row;
-	for (int i = 0; i < row; i++)
+	int p = width - row - 1;
+	for (int i = 0; i <= row; i++)
 	{
-		if ((queens[i] + (row - i)) <= width)
+		if ((queens[i] + (row + 1 - i)) <= (width - 1))
 		{
 			p--;
 		}
-		else if ((queens[i] + (row + i)) >= 0)
+		else if ((queens[i] - (row + 1 - i)) >= 0)
 		{
 			p--;
 		}
@@ -41,7 +44,7 @@ bool isok(int row, int width, int *queens)
 		return false;
 }
 
-void printBoard(int * queens, int width)
+void printBoard(const int * queens, int width)
 {
 	for (int i = 0; i < width; i++)
 	{
@@ -58,7 +61,7 @@ void printBoard(int * queens, int width)
 
 void Nqueens(int deepth, int width, int *queens)
 {
-	if (deepth > width)
+	if (deepth >= width - 1)
 	{
 		printBoard(queens, width);
 	}
@@ -66,7 +69,10 @@ void Nqueens(int deepth, int width, int *queens)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			queens[deepth] = i;
+			if (checkPos(i, width, queens))
+				queens[deepth] = i;
+			else
+				continue;
 			if (isok(deepth, width, queens))
 				Nqueens(++deepth, width, queens);
 		}
@@ -77,5 +83,15 @@ void initQueens(int * queens, int width)
 {
 	for (int i = 0; i < width; i++)
 		queens[i] = -1;
+}
+
+bool checkPos(int pos, int width, const int *queens)
+{
+	for (int i = 0; i < pos; i++)
+	{
+		if (queens[i] == pos)
+			return false;
+	}
+	return true;
 }
 
