@@ -14,7 +14,7 @@ int main()
 {
 	int width;
 	int *queens;
-	printf("Enter the width of chessboard: ");
+	printf_s("Enter the width of chessboard: ");
 	scanf_s("%d", &width);
 
 	queens = (int *)malloc(width * sizeof(int));
@@ -51,11 +51,11 @@ void printBoard(const int * queens, int width)
 		for (int j = 0; j < width; j++)
 		{
 			if (j == queens[i])
-				printf("Q");
+				printf_s("Q");
 			else
-				printf(".");
+				printf_s(".");
 		}
-		printf("\n");
+		printf_s("\n");
 	}
 }
 
@@ -89,11 +89,11 @@ bool checkPos(int row, int pos, const int *queens)
 {
 	for (int i = 0; i < row; i++)
 	{
-		if ((queens[i] + (row + 1 - i)) == pos)
+		if ((queens[i] + (row - i)) == pos || (queens[i] - (row - i)) == pos)
 		{
 			return false;
 		}
-		else if ((queens[i] - (row + 1 - i)) == pos)
+		else if (queens[i] == pos)
 		{
 			return false;
 		}
