@@ -8,7 +8,7 @@ bool isok(int row, int width, const int *queens);
 void printBoard(const int *queens, int width);
 void Nqueens(int deepth, int width, int *queens);
 void initQueens(int *queens, int width);
-bool checkPos(int pos, int width, const int *queens);
+bool checkPos(int row, int pos, const int *queens);
 
 int main()
 {
@@ -69,7 +69,7 @@ void Nqueens(int deepth, int width, int *queens)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			if (checkPos(i, width, queens))
+			if (checkPos(i, deepth, queens))
 				queens[deepth] = i;
 			else
 				continue;
@@ -85,12 +85,18 @@ void initQueens(int * queens, int width)
 		queens[i] = -1;
 }
 
-bool checkPos(int pos, int width, const int *queens)
+bool checkPos(int row, int pos, const int *queens)
 {
-	for (int i = 0; i < pos; i++)
+	for (int i = 0; i < row; i++)
 	{
-		if (queens[i] == pos)
+		if ((queens[i] + (row + 1 - i)) == pos)
+		{
 			return false;
+		}
+		else if ((queens[i] - (row + 1 - i)) == pos)
+		{
+			return false;
+		}
 	}
 	return true;
 }
