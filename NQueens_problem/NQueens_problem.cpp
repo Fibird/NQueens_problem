@@ -54,8 +54,7 @@ void Nqueens(int deepth, int width, int *queens)
 			{
 				queens[deepth] = i;
 				Nqueens(deepth + 1, width, queens);
-			}
-			//if (isok(deepth, width, queens))	
+			}	
 		}
 	}
 }
