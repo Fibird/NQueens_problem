@@ -71,7 +71,7 @@ void Nqueens(int deepth, int width, int *queens)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			if (checkPos(i, deepth, queens))
+			if (checkPos(deepth, i, queens))
 			{
 				queens[deepth] = i;
 				Nqueens(++deepth, width, queens);
