@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "stdlib.h"
 static int count = 0;
-bool isok(int row, int width, const int *queens);
 void printBoard(const int *queens, int width);
 void Nqueens(int deepth, int width, int *queens);
 void initQueens(int *queens, int width);
@@ -24,30 +23,10 @@ int main()
     return 0;
 }
 
-bool isok(int row, int width, const int *queens)
-{
-	int p = width - row - 1;
-	for (int i = 0; i <= row; i++)
-	{
-		if ((queens[i] + (row + 1 - i)) <= (width - 1))
-		{
-			p--;
-		}
-		else if ((queens[i] - (row + 1 - i)) >= 0)
-		{
-			p--;
-		}
-	}
-	if (p > 0)
-		return true;
-	else
-		return false;
-}
-
 void printBoard(const int * queens, int width)
 {
 	count++;
-	printf_s("solution #%d\n", count);
+	printf_s("----solution #%d----\n", count);
 	for (int i = 0; i < width; i++)
 	{
 		for (int j = 0; j < width; j++)
