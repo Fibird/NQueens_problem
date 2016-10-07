@@ -7,8 +7,8 @@
 static int count = 0;
 // Prints the solution chessboard
 void printBoard(const int *queens, int width);
-// Solves the problem by recursive method
-void Nqueens(int depth, int width, int *queens);
+// Solves the problem by no-recursive method
+void Nqueens(int width, int *queens);
 // Inits the array queen
 void initQueens(int *queens, int width);
 // Checks whether there is valid position
@@ -24,7 +24,7 @@ int main()
 	queens = (int *)malloc(width * sizeof(int));
 	initQueens(queens, width);
 
-	Nqueens(0, width, queens);
+	Nqueens(width, queens);
     return 0;
 }
 
@@ -45,22 +45,30 @@ void printBoard(const int * queens, int width)
 	}
 }
 
-void Nqueens(int depth, int width, int *queens)
+void Nqueens(int width, int *queens)
 {
-	if (depth >= width)
+	int depth = 0;
+	bool flag = false;
+	while (depth >= 0)
 	{
-		printBoard(queens, width);
-	}
-	else
-	{
+		flag = false;
 		for (int i = 0; i < width; i++)
 		{
 			if (checkPos(depth, i, queens))
 			{
+				flag = true;
 				queens[depth] = i;
-				Nqueens(depth + 1, width, queens);
-			}	
+				if (depth > width)
+					printBoard(queens, width);
+				else
+				{
+					depth++;
+					break;
+				}	
+			}
 		}
+		if (!flag)
+			depth--;
 	}
 }
 
