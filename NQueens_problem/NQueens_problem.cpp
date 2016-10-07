@@ -63,7 +63,7 @@ void printBoard(const int * queens, int width)
 
 void Nqueens(int deepth, int width, int *queens)
 {
-	if (deepth >= width - 1)
+	if (deepth >= width)
 	{
 		printBoard(queens, width);
 	}
@@ -74,7 +74,7 @@ void Nqueens(int deepth, int width, int *queens)
 			if (checkPos(deepth, i, queens))
 			{
 				queens[deepth] = i;
-				Nqueens(++deepth, width, queens);
+				Nqueens(deepth + 1, width, queens);
 			}
 			//if (isok(deepth, width, queens))	
 		}
