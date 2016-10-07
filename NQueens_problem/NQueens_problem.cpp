@@ -3,10 +3,15 @@
 
 #include "stdafx.h"
 #include "stdlib.h"
+// Count the number of soltuion
 static int count = 0;
+// Prints the solution chessboard
 void printBoard(const int *queens, int width);
-void Nqueens(int deepth, int width, int *queens);
+// Solves the problem by recursive method
+void Nqueens(int depth, int width, int *queens);
+// Inits the array queen
 void initQueens(int *queens, int width);
+// Checks whether there is valid position
 bool checkPos(int row, int pos, const int *queens);
 
 int main()
@@ -40,9 +45,9 @@ void printBoard(const int * queens, int width)
 	}
 }
 
-void Nqueens(int deepth, int width, int *queens)
+void Nqueens(int depth, int width, int *queens)
 {
-	if (deepth >= width)
+	if (depth >= width)
 	{
 		printBoard(queens, width);
 	}
@@ -50,10 +55,10 @@ void Nqueens(int deepth, int width, int *queens)
 	{
 		for (int i = 0; i < width; i++)
 		{
-			if (checkPos(deepth, i, queens))
+			if (checkPos(depth, i, queens))
 			{
-				queens[deepth] = i;
-				Nqueens(deepth + 1, width, queens);
+				queens[depth] = i;
+				Nqueens(depth + 1, width, queens);
 			}	
 		}
 	}
@@ -69,10 +74,12 @@ bool checkPos(int row, int pos, const int *queens)
 {
 	for (int i = 0; i < row; i++)
 	{
+		// Checks diagonal positions
 		if ((queens[i] + (row - i)) == pos || (queens[i] - (row - i)) == pos)
 		{
 			return false;
 		}
+		// Checks column positions
 		else if (queens[i] == pos)
 		{
 			return false;
